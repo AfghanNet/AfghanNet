@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="description" content="AfghanNet Holdings - Special Operations Division. Directorate of Cyber Operations. TOP SECRET // SI // NOFORN.">
+  <title>DCO · Directorate of Cyber Operations</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-abyss: #030408;
+      --bg-crimson: #0a0406;
+      --bg-card: rgba(20, 5, 8, 0.85);
+      --accent-blood: #dc2626;
+      --accent-darkred: #991b1b;
+      --accent-glow: #ef4444;
+      --text-blood: #fecaca;
+      --text-muted: #9ca3af;
+      --border-danger: rgba(220, 38, 38, 0.25);
+      --font-body: 'Inter', sans-serif;
+      --font-head: 'Manrope', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at 20% 10%, #140b0b 0%, #020101 100%);
+      color: var(--text-blood);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* scanline overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(220,38,38,0.02) 0px, transparent 2px, transparent 4px);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* glass effect — dark red tint */
+    .glass-card {
+      background: rgba(15, 3, 5, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-danger);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(220,38,38,0.1) inset;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 30px 50px -16px #000000, 0 0 0 1px var(--accent-blood) inset;
+      transform: translateY(-2px);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      line-height: 1.1;
+      color: #fff;
+      text-shadow: 0 0 20px #dc262680, 0 0 8px #7f1d1d;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      border-left: 6px solid var(--accent-blood);
+      padding-left: 24px;
+    }
+
+    .section-title {
+      font-family: var(--font-mono);
+      letter-spacing: 2px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--accent-blood);
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .classification-stamp {
+      font-family: var(--font-mono);
+      background: #1a0000;
+      color: #dc2626;
+      border: 1.5px solid #dc2626;
+      padding: 6px 18px;
+      display: inline-block;
+      font-weight: 700;
+      letter-spacing: 3px;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1f0101;
+      color: #f87171;
+      padding: 4px 12px;
+      border-radius: 0px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-left: 3px solid #dc2626;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border-radius: 0px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+      border: 1px solid var(--accent-blood);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background: #7f1d1d;
+      color: #fee2e2;
+      box-shadow: 0 8px 20px -6px #dc262680;
+    }
+
+    .btn-primary:hover {
+      background: #991b1b;
+      border-color: #ef4444;
+      box-shadow: 0 0 25px #dc2626;
+    }
+
+    /* Header */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid #2e1014;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .logo span { color: var(--accent-blood); }
+
+    .top-secret-stamp {
+      font-family: var(--font-mono);
+      background: transparent;
+      border: 2px solid #dc2626;
+      color: #dc2626;
+      padding: 6px 16px;
+      font-weight: 800;
+      letter-spacing: 5px;
+    }
+
+    /* grid / cards */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .org-card {
+      background: rgba(8, 2, 3, 0.8);
+      border: 1px solid #3b1212;
+      padding: 28px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    .org-card i {
+      color: var(--accent-blood);
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .org-card h4 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .org-card .function {
+      font-family: var(--font-mono);
+      color: #f87171;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .capability-list {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .capability-list li {
+      margin: 10px 0;
+      display: flex;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    .capability-list li i {
+      font-size: 0.9rem;
+      color: var(--accent-blood);
+      margin-top: 4px;
+    }
+
+    /* quote */
+    .quote-block {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      border-left: 8px solid var(--accent-blood);
+      padding: 24px 32px;
+      background: #0a0203;
+      margin: 40px 0;
+    }
+
+    footer {
+      border-top: 1px solid #3b1212;
+      margin-top: 80px;
+      padding: 40px 0;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    /* RTL not needed but keep consistent */
+    @media (max-width: 800px) {
+      .grid-2col, .grid-3col { grid-template-columns: 1fr; }
+      .navbar { flex-direction: column; gap: 16px; }
+    }
+
+    /* glitch effect for classification */
+    .glitch {
+      text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,0,255,0.75);
+      animation: glitch 500ms infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo"><span>AFGHANNET</span> // DCO</div>
+    <div class="top-secret-stamp">TOP SECRET // SI // NOFORN</div>
+  </header>
+
+  <!-- HERO / directorate info -->
+  <section style="padding: 50px 0 20px;">
+    <div class="classification-stamp" style="margin-bottom: 20px;">// CLASSIFIED COMPARTMENT</div>
+    <h1>DIRECTORATE OF<br>CYBER OPERATIONS</h1>
+    <div style="display:flex; flex-wrap:wrap; gap: 30px 60px; margin: 30px 0;">
+      <div><span style="color:#9ca3af;">DIRECTOR:</span> Tawfiq Ahmad Rahmani</div>
+      <div><span style="color:#9ca3af;">CLASSIFICATION:</span> TOP SECRET // SI // NOFORN</div>
+      <div><span style="color:#9ca3af;">ESTABLISHED:</span> 2026</div>
+      <div><span style="color:#9ca3af;">HEADQUARTERS:</span> Undisclosed Location, Kabul Province</div>
+    </div>
+  </section>
+
+  <!-- Mission statement -->
+  <section style="margin: 20px 0 50px;">
+    <div class="glass-card" style="padding: 36px;">
+      <div class="section-title"><i class="fas fa-crosshairs"></i> MISSION STATEMENT</div>
+      <p style="font-size: 1.3rem; line-height: 1.5; color: #f3f4f6;">The Directorate of Cyber Operations serves as the principal cyber intelligence and operations arm of AfghanNet Holdings, responsible for foreign signals collection, defensive cyber operations, counterintelligence, and strategic impact missions in support of Afghan national security interests.</p>
+    </div>
+  </section>
+
+  <!-- Organizational Structure -->
+  <h2 style="margin: 60px 0 20px;">ORGANIZATIONAL STRUCTURE</h2>
+
+  <!-- Office of Signals Intelligence (OSI) & Cyber Defense Command (CDC) -->
+  <div class="grid-2col" style="margin-bottom: 30px;">
+    <!-- OSI -->
+    <div class="org-card">
+      <i class="fas fa-satellite-dish"></i>
+      <h4>Office of Signals Intelligence</h4>
+      <div class="function">(OSI) · Foreign signals collection and analysis</div>
+      <p style="margin-bottom: 16px; color:#cbd5e1;"><strong>Mandate:</strong> Collect, process, and disseminate foreign communications and electronic signals of intelligence value to Afghan national security.</p>
+      <div class="badge">Capabilities</div>
+      <ul class="capability-list">
+        <li><i class="fas fa-circle"></i> Strategic signals collection against regional threats</li>
+        <li><i class="fas fa-circle"></i> Technical exploitation of foreign communications networks</li>
+        <li><i class="fas fa-circle"></i> Cryptanalytic capabilities against targeted systems</li>
+        <li><i class="fas fa-circle"></i> Early warning systems for emerging cyber threats</li>
+      </ul>
+      <p style="margin-top:18px;"><span style="color:#ef4444;">Operational Focus:</span> Regional state actors, non-state threats, and foreign intelligence services operating in or targeting Afghan interests.</p>
+    </div>
+    <!-- CDC -->
+    <div class="org-card">
+      <i class="fas fa-shield-halved"></i>
+      <h4>Cyber Defense Command</h4>
+      <div class="function">(CDC) · Defensive cyber operations for national infrastructure</div>
+      <p style="margin-bottom: 16px; color:#cbd5e1;"><strong>Mandate:</strong> Protect Afghan government networks, critical infrastructure, and sovereign digital assets from foreign intrusion and cyber attack.</p>
+      <div class="badge">Capabilities</div>
+      <ul class="capability-list">
+        <li><i class="fas fa-circle"></i> 24/7 network monitoring and threat detection</li>
+        <li><i class="fas fa-circle"></i> M9-ASSASSIN defensive platform deployment</li>
+        <li><i class="fas fa-circle"></i> Incident response and remediation</li>
+        <li><i class="fas fa-circle"></i> Vulnerability assessment and penetration testing of domestic systems</li>
+      </ul>
+      <p style="margin-top:18px;"><span style="color:#ef4444;">Operational Focus:</span> Government networks, military systems, energy infrastructure, financial sector, and telecommunications backbone.</p>
+    </div>
+  </div>
+
+  <!-- OCI & SID -->
+  <div class="grid-2col" style="margin-bottom: 30px;">
+    <div class="org-card">
+      <i class="fas fa-user-secret"></i>
+      <h4>Office of Counter Intelligence</h4>
+      <div class="function">(OCI) · Identify and neutralize foreign intelligence threats</div>
+      <p style="margin-bottom: 16px;"><strong>Mandate:</strong> Detect, investigate, and counter foreign intelligence activities directed against Afghan interests and AfghanNet operations.</p>
+      <div class="badge">Capabilities</div>
+      <ul class="capability-list">
+        <li><i class="fas fa-circle"></i> Counterintelligence investigations</li>
+        <li><i class="fas fa-circle"></i> Double agent operations</li>
+        <li><i class="fas fa-circle"></i> Foreign intelligence service penetration</li>
+        <li><i class="fas fa-circle"></i> Insider threat detection and mitigation</li>
+      </ul>
+      <p style="margin-top:18px;"><span style="color:#ef4444;">Operational Focus:</span> Foreign intelligence officers, recruited assets, and technical surveillance operations targeting Afghan sovereignty.</p>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-bolt"></i>
+      <h4>Strategic Impact Division</h4>
+      <div class="function">(SID) · Offensive cyber operations</div>
+      <p style="margin-bottom: 16px;"><strong>Mandate:</strong> Conduct computer network operations to disrupt, deny, or degrade hostile foreign capabilities targeting Afghan interests.</p>
+      <div class="badge">Capabilities</div>
+      <ul class="capability-list">
+        <li><i class="fas fa-circle"></i> K9-ASSASSIN platform deployment</li>
+        <li><i class="fas fa-circle"></i> Targeted disruption of hostile infrastructure</li>
+        <li><i class="fas fa-circle"></i> Precision cyber effects against validated threats</li>
+        <li><i class="fas fa-circle"></i> Retaliatory operations when authorized</li>
+      </ul>
+      <p style="margin-top:18px;"><span style="color:#ef4444;">Operational Focus:</span> Nation-state adversaries, terrorist networks, and entities actively targeting Afghan national security.</p>
+    </div>
+  </div>
+
+  <!-- FLO & TOG & HID & APC etc... use 3col for rest -->
+  <div class="grid-3col">
+    <div class="org-card">
+      <i class="fas fa-handshake"></i>
+      <h4>Foreign Liaison Office</h4>
+      <div class="function">(FLO)</div>
+      <p><strong>Mandate:</strong> Establish and maintain information-sharing partnerships with friendly foreign intelligence and security services.</p>
+      <ul class="capability-list"><li>Bilateral intelligence sharing</li><li>Joint ops coordination</li><li>Technical exchange</li></ul>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-microchip"></i>
+      <h4>Technical Operations Group</h4>
+      <div class="function">(TOG)</div>
+      <p><strong>Mandate:</strong> R&D of advanced technical capabilities for DCO.</p>
+      <ul class="capability-list"><li>Custom surveillance tech</li><li>Exploit development</li><li>Quantum-resistant crypto</li></ul>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-user-ninja"></i>
+      <h4>Human Intelligence Division</h4>
+      <div class="function">(HID)</div>
+      <p><strong>Mandate:</strong> Recruit and manage human assets.</p>
+      <ul class="capability-list"><li>Asset recruitment</li><li>Covert action support</li><li>Defector debriefing</li></ul>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-chart-pie"></i>
+      <h4>Analysis & Production Center</h4>
+      <div class="function">(APC)</div>
+      <p><strong>Mandate:</strong> All-source intelligence fusion for Afghan leadership.</p>
+      <ul class="capability-list"><li>Multi-source fusion</li><li>Predictive analysis</li><li>Threat assessment</li></ul>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-mask"></i>
+      <h4>Special Collection Service</h4>
+      <div class="function">(SCS)</div>
+      <p><strong>Mandate:</strong> Unacknowledged and sensitive collection ops.</p>
+      <ul class="capability-list"><li>Denied area collection</li><li>Black bag operations</li><li>Special access programs</li></ul>
+    </div>
+    <div class="org-card">
+      <i class="fas fa-scale-balanced"></i>
+      <h4>Office of the Inspector General</h4>
+      <div class="function">(OIG)</div>
+      <p><strong>Mandate:</strong> Internal oversight and accountability.</p>
+      <ul class="capability-list"><li>Compliance reviews</li><li>Whistleblower protection</li><li>Independent reporting</li></ul>
+    </div>
+  </div>
+
+  <!-- Directorate Leadership -->
+  <section style="margin: 60px 0;">
+    <div class="glass-card" style="padding:32px;">
+      <h3 style="color:white; margin-bottom:24px;"><i class="fas fa-user-tie"></i> DIRECTORATE LEADERSHIP</h3>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px; font-family:var(--font-mono);">
+        <div><span style="color:#9ca3af;">Director, Cyber Operations:</span> Tawfiq Ahmad Rahmani</div>
+        <div><span style="color:#9ca3af;">Deputy Director:</span> [Position Classified]</div>
+        <div><span style="color:#9ca3af;">Chief of Staff:</span> [Position Classified]</div>
+        <div><span style="color:#9ca3af;">Legal Counsel:</span> [Position Classified]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authority & Oversight -->
+  <section style="margin: 40px 0;">
+    <p style="color: #cbd5e1;"><i class="fas fa-gavel" style="margin-right:10px; color:#dc2626;"></i> The Directorate of Cyber Operations operates under the authority of AfghanNet Holdings with oversight provided by the Office of the Inspector General and designated national security officials. All operations are conducted in accordance with applicable Afghan law and international obligations.</p>
+  </section>
+
+  <!-- Contact -->
+  <div class="glass-card" style="padding:28px; text-align:center; max-width:800px; margin:20px auto;">
+    <i class="fas fa-eye-slash" style="font-size:2.5rem; color:#dc2626;"></i>
+    <h4 style="margin:16px 0; color:white;">NO PUBLIC CONTACT CHANNELS</h4>
+    <p style="color: #9ca3af;">The Directorate of Cyber Operations does not maintain public contact channels. Inquiries from partner nations should be directed through established liaison channels. All other inquiries will not receive acknowledgment.</p>
+  </div>
+
+  <!-- Quote / footer line -->
+  <div class="quote-block">
+    <i class="fas fa-quote-left" style="margin-right:16px; opacity:0.6;"></i> 
+    We see what others don't. We protect what others can't. We act when others won't.
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div>AfghanNet Holdings - Special Operations Division · Directorate of Cyber Operations</div>
+      <div>TOP SECRET // SI // NOFORN</div>
+    </div>
+    <div style="margin-top:30px; text-align:center; color:#4b1e1e;">© 2026 — ALL RIGHTS RESERVED. NO UNAUTHORIZED ACCESS.</div>
+  </footer>
+</div>
+
+<!-- tiny extra scary detail -->
+<script>
+  console.log("%c WARNING: This is a classified system. Unauthorized access is punishable under Afghan law.","color: #dc2626; font-size:14px; font-weight:bold;");
+</script>
+</body>
+</html> 
