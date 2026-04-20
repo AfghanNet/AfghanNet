@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="description" content="AfghanChat – Afghanistan's first sovereign messaging platform. Secure, private, and built on AfghanCloud.">
+  <title>AfghanChat · Sovereign Messaging</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #0a0f1e;
+      --bg-dark: #0f1a2f;
+      --bg-card: rgba(15, 25, 45, 0.7);
+      --accent-blue: #1e6ef0;
+      --accent-glow: #3b82f6;
+      --text-light: #eef2fb;
+      --text-muted: #a0b3d9;
+      --border-glow: rgba(30, 110, 240, 0.3);
+      --font-body: 'Inter', sans-serif;
+      --font-head: 'Manrope', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at 30% 10%, #0e1a2b 0%, #040a14 100%);
+      color: var(--text-light);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    /* glassmorphism cards */
+    .glass-card {
+      background: rgba(10, 20, 40, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(30, 110, 240, 0.15);
+      border-radius: 28px;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1) inset;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 30px 50px -16px #00000080, 0 0 0 1px var(--accent-glow) inset;
+      transform: translateY(-3px);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1.1;
+      background: linear-gradient(to right, #fff, #b8d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent-blue);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: white;
+      box-shadow: 0 8px 20px -4px #1e6ef080;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: scale(1.02);
+      box-shadow: 0 12px 28px -6px #3b82f6;
+    }
+
+    .btn-outline-light {
+      border-color: #334155;
+      color: var(--text-light);
+      background: transparent;
+    }
+
+    .btn-outline-light:hover {
+      border-color: var(--accent-blue);
+      background: rgba(30,110,240,0.1);
+    }
+
+    /* Header */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    .nav-links a:hover { color: white; opacity: 1; }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-item {
+      padding: 24px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 24px;
+      border: 1px solid #1e2a44;
+    }
+
+    .feature-item i {
+      font-size: 2rem;
+      color: var(--accent-blue);
+      margin-bottom: 16px;
+    }
+
+    /* Table compare */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #0f1a2f80;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .compare-table th {
+      background: #0f1a2f;
+      padding: 18px 16px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .compare-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e2a44;
+    }
+
+    .check { color: #10b981; }
+    .cross { color: #ef4444; }
+    .partial { color: #f59e0b; }
+
+    /* pricing cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+
+    .pricing-card {
+      background: #0f1a2f;
+      border-radius: 28px;
+      padding: 28px 20px;
+      border: 1px solid #1e3a5f;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 30px #1e6ef030;
+      transform: scale(1.02);
+      background: #0d1b2f;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 20px 0 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    /* hero split */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 85vh;
+      padding: 40px 0;
+    }
+
+    .glow-text {
+      color: var(--accent-glow);
+      text-shadow: 0 0 15px #3b82f680;
+    }
+
+    footer {
+      border-top: 1px solid #1e2a44;
+      margin-top: 80px;
+      padding: 40px 0;
+      color: var(--text-muted);
+    }
+
+    /* roadmap timeline */
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .milestone {
+      background: #0f1a2f;
+      border-radius: 40px;
+      padding: 12px 24px;
+      border-left: 6px solid var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo"><span>AFGHAN</span>CHAT</div>
+    <nav class="nav-links">
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Why AfghanChat</a>
+      <a href="#">Roadmap</a>
+    </nav>
+    <a href="#" class="btn btn-primary" style="padding:10px 24px;">Get Started</a>
+  </header>
+
+  <!-- Hero -->
+  <section>
+    <div class="hero-split">
+      <div>
+        <div class="badge" style="margin-bottom:20px;">🇦🇫 Afghanistan's First Sovereign Messenger</div>
+        <h1>Chat freely.<br><span class="glow-text">Stay Afghan.</span></h1>
+        <p style="font-size:1.2rem; margin:28px 0; opacity:0.9; max-width:550px;">Secure messaging that keeps your data inside Afghanistan. No foreign servers. No surveillance. Just privacy.</p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download (PWA)</a>
+          <a href="#" class="btn btn-outline-light"><i class="fab fa-google-play"></i> Android (soon)</a>
+        </div>
+        <div style="margin-top:40px; display:flex; gap:30px; color: var(--text-muted);">
+          <div><i class="fas fa-shield-alt"></i> AfghanCloud</div>
+          <div><i class="fas fa-gem"></i> Lifetime $15</div>
+          <div><i class="fas fa-users"></i> 200k groups</div>
+        </div>
+      </div>
+      <div class="glass-card" style="padding:32px; text-align:center;">
+        <i class="fas fa-comment-dots" style="font-size:5rem; color: var(--accent-blue); margin-bottom:20px;"></i>
+        <h3 style="margin-bottom:12px;">No foreign jurisdiction</h3>
+        <p style="opacity:0.9;">All messages stay in Afghanistan, under Afghan law. End-to-end encrypted (Q3 2026).</p>
+        <div style="margin: 32px 0; height:2px; background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);"></div>
+        <div style="display:flex; justify-content:center; gap:20px; font-size:2rem;">
+          <i class="fab fa-whatsapp" style="color:#25D366; opacity:0.5;"></i>
+          <i class="fab fa-telegram" style="color:#26A5E4; opacity:0.5;"></i>
+          <i class="fas fa-times" style="color:#ef4444;"></i>
+          <i class="fas fa-arrow-right" style="color:var(--accent-blue);"></i>
+          <i class="fas fa-check-circle" style="color:#10b981;"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why AfghanChat + comparison -->
+  <section style="margin: 80px 0;">
+    <h2>Why AfghanChat? <span style="font-size:1.2rem; font-weight:400; margin-left:16px;">Data sovereignty matters</span></h2>
+    <div class="glass-card" style="padding:28px; overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Platform</th><th>Data Location</th><th>Jurisdiction</th><th>Metadata</th><th>Afghan Lang</th></tr></thead>
+        <tbody>
+          <tr><td>WhatsApp</td><td>USA</td><td>US law</td><td>Full</td><td>Limited</td></tr>
+          <tr><td>Telegram</td><td>Dubai/SG</td><td>UAE/SG</td><td>Partial</td><td>Poor</td></tr>
+          <tr><td>Signal</td><td>USA</td><td>US law</td><td>Minimal</td><td>None</td></tr>
+          <tr style="background:#0e1f33;"><td><strong>AfghanChat</strong></td><td><i class="fas fa-map-pin check"></i> Afghanistan</td><td><i class="fas fa-gavel check"></i> Afghan law</td><td><i class="fas fa-ban check"></i> None</td><td><i class="fas fa-language check"></i> Full</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Features grid (highlight key categories) -->
+  <section>
+    <h2>Everything you need, <br>sovereign by design</h2>
+    <div class="feature-grid">
+      <div class="feature-item"><i class="fas fa-comment"></i><h4>Messaging</h4><p>Edit, delete, forward, reply, pin. Up to 100MB free file transfer.</p></div>
+      <div class="feature-item"><i class="fas fa-users"></i><h4>Groups & Channels</h4><p>200k members, admin tools, announcement mode, discovery.</p></div>
+      <div class="feature-item"><i class="fas fa-clock"></i><h4>Self-destruct</h4><p>5s to 24h timers. Screenshot detection (coming).</p></div>
+      <div class="feature-item"><i class="fas fa-phone-alt"></i><h4>Calls</h4><p>E2EE voice/video, group up to 16, screen sharing.</p></div>
+      <div class="feature-item"><i class="fas fa-paint-brush"></i><h4>Theme Builder</h4><p>Custom colors, bubbles, real‑time preview. 4 presets.</p></div>
+      <div class="feature-item"><i class="fas fa-crown"></i><h4>Premium Flex</h4><p>Crowns, stars, gifts, points, leaderboards.</p></div>
+      <div class="feature-item"><i class="fas fa-database"></i><h4>AfghanCloud</h4><p>Data never leaves Afghanistan. No foreign access.</p></div>
+      <div class="feature-item"><i class="fas fa-globe"></i><h4>For Everyone</h4><p>Free for Afghans, diaspora, international users.</p></div>
+    </div>
+  </section>
+
+  <!-- Pricing section -->
+  <section style="margin: 80px 0;">
+    <h2>Simple, transparent pricing</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card"><h3>Free</h3><div class="price">$0</div><p>Forever</p><ul style="list-style:none; margin:20px 0;"><li><i class="fas fa-check check"></i> Unlimited messaging</li><li>100MB files</li><li>4 themes</li><li>Groups & channels</li></ul><a href="#" class="btn btn-outline-light" style="width:100%;">Get Started</a></div>
+      <div class="pricing-card"><h3>Monthly</h3><div class="price">$4.99</div><p>per month</p><ul style="list-style:none; margin:20px 0;"><li><i class="fas fa-check check"></i> 1GB uploads</li><li>Custom theme save</li><li>Premium badge</li><li>Priority support</li></ul><a href="#" class="btn btn-outline-light" style="width:100%;">Choose</a></div>
+      <div class="pricing-card featured"><div class="badge" style="background:#10b981;">Best value</div><h3>Yearly</h3><div class="price">$9.99</div><p>per year (save 83%)</p><ul style="list-style:none; margin:20px 0;"><li>All monthly features</li><li><i class="fas fa-gem"></i> 83% savings</li></ul><a href="#" class="btn btn-primary" style="width:100%;">Get Yearly</a></div>
+      <div class="pricing-card"><h3>Lifetime</h3><div class="price">$15</div><p>one-time</p><ul style="list-style:none; margin:20px 0;"><li>Premium forever</li><li>Founder badge</li><li>Early access</li><li><i class="fas fa-infinity"></i> All future perks</li></ul><a href="#" class="btn btn-primary" style="width:100%;">Claim Lifetime</a></div>
+    </div>
+    <p style="margin-top:20px; text-align:center;"><i class="fas fa-credit-card"></i> Pay with AziPay, USDT, PayPal, or mobile credit (soon)</p>
+  </section>
+
+  <!-- Privacy Guarantee + Roadmap -->
+  <section style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+    <div class="glass-card" style="padding:30px;">
+      <h3><i class="fas fa-lock" style="color:var(--accent-blue);"></i> Privacy Guarantee</h3>
+      <ul style="list-style:none; margin-top:20px;">
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> No message content access (E2EE Q3)</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> No metadata sale – charter prohibition</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> No backdoors, annual audits</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> Afghan jurisdiction only</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> Transparency reporting</li>
+      </ul>
+    </div>
+    <div class="glass-card" style="padding:30px;">
+      <h3><i class="fas fa-road" style="color:var(--accent-blue);"></i> Roadmap</h3>
+      <div class="timeline">
+        <div class="milestone"><strong>Q3 2026</strong> Signal Protocol E2EE</div>
+        <div class="milestone"><strong>Q4 2026</strong> Native Android</div>
+        <div class="milestone"><strong>Q1 2027</strong> iOS App</div>
+        <div class="milestone"><strong>Q2 2027</strong> AfghanCloud backup</div>
+        <div class="milestone"><strong>Q3 2027</strong> Multi-device</div>
+        <div class="milestone"><strong>2028</strong> AfghanTube integration</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison advantage summary -->
+  <section style="margin:60px 0;">
+    <div class="glass-card" style="padding:32px;">
+      <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:space-between;">
+        <div><i class="fas fa-server fa-2x" style="color:var(--accent-blue);"></i><h4>Afghan-owned servers</h4><p>Only AfghanChat operates entirely on Afghan soil.</p></div>
+        <div><i class="fas fa-language fa-2x"></i><h4>Full Dari/Pashto</h4><p>Interface & support in both national languages.</p></div>
+        <div><i class="fas fa-palette fa-2x"></i><h4>Theme builder</h4><p>Real‑time customization, unique to AfghanChat.</p></div>
+        <div><i class="fas fa-trophy fa-2x"></i><h4>Crowns & Gifts</h4><p>Gamified engagement with leaderboards.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center; padding:60px 0;">
+    <h2 style="font-size:3rem;">Sovereign Messaging.<br> Delivered.</h2>
+    <p style="margin:24px 0; font-size:1.2rem;">Free forever. Premium if you choose. Built in Kabul, for Afghanistan and the world.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1.2rem; padding:18px 48px;"><i class="fas fa-download"></i> Download AfghanChat</a>
+    <p style="margin-top:20px; opacity:0.7;">Available as PWA · Android/iOS coming soon</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px;">
+      <div><strong>AfghanChat</strong><br>© 2026 AfghanNet Holdings<br>Kabul, Afghanistan</div>
+      <div><a href="#" style="color:var(--text-muted); text-decoration:none;">Privacy</a> · <a href="#" style="color:var(--text-muted);">Terms</a> · <a href="#" style="color:var(--text-muted);">Transparency</a></div>
+      <div><i class="fab fa-twitter"></i> <i class="fab fa-github"></i> <i class="fab fa-linkedin"></i></div>
+    </div>
+  </footer>
+</div>
+
+<!-- subtle floating effect -->
+<script>
+  // just a tiny interactivity if needed
+  console.log("🇦🇫 AfghanChat – Sovereign Messaging");
+</script>
+</body>
+                                  </html>
