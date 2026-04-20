@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="description" content="افغان چت – اولین پلتفرم پیام‌رسان مستقل افغانستان. امن، خصوصی و ساخته شده بر روی افغان کلود.">
+  <title>افغان چت · پیام‌رسان مستقل</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #0a0f1e;
+      --bg-dark: #0f1a2f;
+      --bg-card: rgba(15, 25, 45, 0.7);
+      --accent-blue: #1e6ef0;
+      --accent-glow: #3b82f6;
+      --text-light: #eef2fb;
+      --text-muted: #a0b3d9;
+      --border-glow: rgba(30, 110, 240, 0.3);
+      --font-body: 'Vazirmatn', 'Inter', sans-serif;
+      --font-head: 'Vazirmatn', 'Manrope', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at 30% 10%, #0e1a2b 0%, #040a14 100%);
+      color: var(--text-light);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    /* glassmorphism cards */
+    .glass-card {
+      background: rgba(10, 20, 40, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(30, 110, 240, 0.15);
+      border-radius: 28px;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1) inset;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 30px 50px -16px #00000080, 0 0 0 1px var(--accent-glow) inset;
+      transform: translateY(-3px);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1.1;
+      background: linear-gradient(to right, #fff, #b8d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent-blue);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: white;
+      box-shadow: 0 8px 20px -4px #1e6ef080;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: scale(1.02);
+      box-shadow: 0 12px 28px -6px #3b82f6;
+    }
+
+    .btn-outline-light {
+      border-color: #334155;
+      color: var(--text-light);
+      background: transparent;
+    }
+
+    .btn-outline-light:hover {
+      border-color: var(--accent-blue);
+      background: rgba(30,110,240,0.1);
+    }
+
+    /* Header */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent-blue); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    .nav-links a:hover { color: white; opacity: 1; }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-item {
+      padding: 24px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 24px;
+      border: 1px solid #1e2a44;
+    }
+
+    .feature-item i {
+      font-size: 2rem;
+      color: var(--accent-blue);
+      margin-bottom: 16px;
+    }
+
+    /* Table compare */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #0f1a2f80;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .compare-table th {
+      background: #0f1a2f;
+      padding: 18px 16px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .compare-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e2a44;
+    }
+
+    .check { color: #10b981; }
+    .cross { color: #ef4444; }
+    .partial { color: #f59e0b; }
+
+    /* pricing cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+
+    .pricing-card {
+      background: #0f1a2f;
+      border-radius: 28px;
+      padding: 28px 20px;
+      border: 1px solid #1e3a5f;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 30px #1e6ef030;
+      transform: scale(1.02);
+      background: #0d1b2f;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 20px 0 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    /* hero split */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 85vh;
+      padding: 40px 0;
+    }
+
+    .glow-text {
+      color: var(--accent-glow);
+      text-shadow: 0 0 15px #3b82f680;
+    }
+
+    footer {
+      border-top: 1px solid #1e2a44;
+      margin-top: 80px;
+      padding: 40px 0;
+      color: var(--text-muted);
+    }
+
+    /* roadmap timeline */
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .milestone {
+      background: #0f1a2f;
+      border-radius: 40px;
+      padding: 12px 24px;
+      border-right: 6px solid var(--accent-blue);
+    }
+
+    /* RTL specific */
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .feature-item { text-align: right; }
+    [dir="rtl"] .btn i { margin-left: 8px; margin-right: 0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo"><span>افغان</span> چت</div>
+    <nav class="nav-links">
+      <a href="#">ویژگی‌ها</a>
+      <a href="#">قیمت‌ها</a>
+      <a href="#">چرا افغان چت</a>
+      <a href="#">نقشه راه</a>
+    </nav>
+    <a href="#" class="btn btn-primary" style="padding:10px 24px;">شروع کنید</a>
+  </header>
+
+  <!-- Hero -->
+  <section>
+    <div class="hero-split">
+      <div>
+        <div class="badge" style="margin-bottom:20px;">🇦🇫 اولین پیام‌رسان مستقل افغانستان</div>
+        <h1>آزادانه گفتگو کنید.<br><span class="glow-text">افغان بمانید.</span></h1>
+        <p style="font-size:1.2rem; margin:28px 0; opacity:0.9; max-width:550px;">پیام‌رسانی امن که داده‌های شما را در داخل افغانستان نگه می‌دارد. بدون سرورهای خارجی. بدون نظارت. فقط حریم خصوصی.</p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> دانلود (PWA)</a>
+          <a href="#" class="btn btn-outline-light"><i class="fab fa-google-play"></i> اندروید (به زودی)</a>
+        </div>
+        <div style="margin-top:40px; display:flex; gap:30px; color: var(--text-muted);">
+          <div><i class="fas fa-shield-alt"></i> افغان کلود</div>
+          <div><i class="fas fa-gem"></i> مادام‌العمر $15</div>
+          <div><i class="fas fa-users"></i> گروه‌های 200k</div>
+        </div>
+      </div>
+      <div class="glass-card" style="padding:32px; text-align:center;">
+        <i class="fas fa-comment-dots" style="font-size:5rem; color: var(--accent-blue); margin-bottom:20px;"></i>
+        <h3 style="margin-bottom:12px;">بدون صلاحیت قضایی خارجی</h3>
+        <p style="opacity:0.9;">تمام پیام‌ها در افغانستان، تحت قوانین افغانستان باقی می‌مانند. رمزنگاری سرتاسری (Q3 2026).</p>
+        <div style="margin: 32px 0; height:2px; background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);"></div>
+        <div style="display:flex; justify-content:center; gap:20px; font-size:2rem;">
+          <i class="fab fa-whatsapp" style="color:#25D366; opacity:0.5;"></i>
+          <i class="fab fa-telegram" style="color:#26A5E4; opacity:0.5;"></i>
+          <i class="fas fa-times" style="color:#ef4444;"></i>
+          <i class="fas fa-arrow-right" style="color:var(--accent-blue);"></i>
+          <i class="fas fa-check-circle" style="color:#10b981;"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why AfghanChat + comparison -->
+  <section style="margin: 80px 0;">
+    <h2>چرا افغان چت؟ <span style="font-size:1.2rem; font-weight:400; margin-right:16px;">حاکمیت داده اهمیت دارد</span></h2>
+    <div class="glass-card" style="padding:28px; overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>پلتفرم</th><th>موقعیت داده</th><th>صلاحیت قضایی</th><th>فراداده</th><th>زبان افغانی</th></tr></thead>
+        <tbody>
+          <tr><td>واتساپ</td><td>USA</td><td>قانون US</td><td>کامل</td><td>محدود</td></tr>
+          <tr><td>تلگرام</td><td>Dubai/SG</td><td>قانون UAE/SG</td><td>جزئی</td><td>ضعیف</td></tr>
+          <tr><td>سیگنال</td><td>USA</td><td>قانون US</td><td>حداقل</td><td>هیچ</td></tr>
+          <tr style="background:#0e1f33;"><td><strong>افغان چت</strong></td><td><i class="fas fa-map-pin check"></i> افغانستان</td><td><i class="fas fa-gavel check"></i> قانون افغانستان</td><td><i class="fas fa-ban check"></i> هیچ</td><td><i class="fas fa-language check"></i> کامل</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Features grid -->
+  <section>
+    <h2>همه چیز که نیاز دارید، <br>با طراحی مستقل</h2>
+    <div class="feature-grid">
+      <div class="feature-item"><i class="fas fa-comment"></i><h4>پیام‌رسانی</h4><p>ویرایش، حذف، ارسال مجدد، پاسخ، سنجاق. انتقال فایل رایگان تا 100MB.</p></div>
+      <div class="feature-item"><i class="fas fa-users"></i><h4>گروه‌ها و کانال‌ها</h4><p>200k عضو، ابزارهای مدیریتی، حالت اعلامیه، کشف.</p></div>
+      <div class="feature-item"><i class="fas fa-clock"></i><h4>خودتخریب</h4><p>تایمر از 5s تا 24h. تشخیص اسکرین‌شات (به زودی).</p></div>
+      <div class="feature-item"><i class="fas fa-phone-alt"></i><h4>تماس‌ها</h4><p>صوتی/تصویری رمزنگاری شده، گروهی تا 16 نفر، اشتراک صفحه.</p></div>
+      <div class="feature-item"><i class="fas fa-paint-brush"></i><h4>سازنده تم</h4><p>رنگ‌های سفارشی، حباب‌ها، پیش‌نمایش زنده. 4 پیش‌فرض.</p></div>
+      <div class="feature-item"><i class="fas fa-crown"></i><h4>پریمیوم فلکس</h4><p>تاج‌ها، ستاره‌ها، هدایا، امتیازات، جدول امتیازات.</p></div>
+      <div class="feature-item"><i class="fas fa-database"></i><h4>افغان کلود</h4><p>داده‌ها هرگز افغانستان را ترک نمی‌کنند. بدون دسترسی خارجی.</p></div>
+      <div class="feature-item"><i class="fas fa-globe"></i><h4>برای همه</h4><p>رایگان برای افغان‌ها، دیاسپورا، کاربران بین‌المللی.</p></div>
+    </div>
+  </section>
+
+  <!-- Pricing section -->
+  <section style="margin: 80px 0;">
+    <h2>قیمت‌گذاری ساده و شفاف</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card"><h3>رایگان</h3><div class="price">$0</div><p>همیشگی</p><ul style="list-style:none; margin:20px 0;"><li><i class="fas fa-check check"></i> پیام‌رسانی نامحدود</li><li>فایل 100MB</li><li>4 تم</li><li>گروه‌ها و کانال‌ها</li></ul><a href="#" class="btn btn-outline-light" style="width:100%;">شروع کنید</a></div>
+      <div class="pricing-card"><h3>ماهانه</h3><div class="price">$4.99</div><p>در ماه</p><ul style="list-style:none; margin:20px 0;"><li><i class="fas fa-check check"></i> آپلود 1GB</li><li>ذخیره تم سفارشی</li><li>نشان پریمیوم</li><li>پشتیبانی اولویت‌دار</li></ul><a href="#" class="btn btn-outline-light" style="width:100%;">انتخاب</a></div>
+      <div class="pricing-card featured"><div class="badge" style="background:#10b981;">بهترین ارزش</div><h3>سالانه</h3><div class="price">$9.99</div><p>در سال (صرفه‌جویی 83%)</p><ul style="list-style:none; margin:20px 0;"><li>تمام ویژگی‌های ماهانه</li><li><i class="fas fa-gem"></i> 83% صرفه‌جویی</li></ul><a href="#" class="btn btn-primary" style="width:100%;">دریافت سالانه</a></div>
+      <div class="pricing-card"><h3>مادام‌العمر</h3><div class="price">$15</div><p>یک‌بار</p><ul style="list-style:none; margin:20px 0;"><li>پریمیوم برای همیشه</li><li>نشان بنیان‌گذار</li><li>دسترسی زودهنگام</li><li><i class="fas fa-infinity"></i> تمام مزایای آینده</li></ul><a href="#" class="btn btn-primary" style="width:100%;">دریافت مادام‌العمر</a></div>
+    </div>
+    <p style="margin-top:20px; text-align:center;"><i class="fas fa-credit-card"></i> پرداخت با AziPay، USDT، PayPal، یا اعتبار موبایل (به زودی)</p>
+  </section>
+
+  <!-- Privacy Guarantee + Roadmap -->
+  <section style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+    <div class="glass-card" style="padding:30px;">
+      <h3><i class="fas fa-lock" style="color:var(--accent-blue);"></i> تضمین حریم خصوصی</h3>
+      <ul style="list-style:none; margin-top:20px;">
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> عدم دسترسی به محتوای پیام (E2EE Q3)</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> عدم فروش فراداده – ممنوعیت در اساسنامه</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> بدون درب پشتی، ممیزی سالانه</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> فقط صلاحیت قضایی افغانستان</li>
+        <li style="margin:12px 0;"><i class="fas fa-check-circle check"></i> گزارش شفافیت</li>
+      </ul>
+    </div>
+    <div class="glass-card" style="padding:30px;">
+      <h3><i class="fas fa-road" style="color:var(--accent-blue);"></i> نقشه راه</h3>
+      <div class="timeline">
+        <div class="milestone"><strong>Q3 2026</strong> پروتکل سیگنال E2EE</div>
+        <div class="milestone"><strong>Q4 2026</strong> اندروید بومی</div>
+        <div class="milestone"><strong>Q1 2027</strong> اپ iOS</div>
+        <div class="milestone"><strong>Q2 2027</strong> پشتیبان‌گیری افغان کلود</div>
+        <div class="milestone"><strong>Q3 2027</strong> پشتیبانی چنددستگاهی</div>
+        <div class="milestone"><strong>2028</strong> ادغام با افغان تیوب</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison advantage summary -->
+  <section style="margin:60px 0;">
+    <div class="glass-card" style="padding:32px;">
+      <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:space-between;">
+        <div><i class="fas fa-server fa-2x" style="color:var(--accent-blue);"></i><h4>سرورهای متعلق به افغانستان</h4><p>فقط افغان چت کاملاً بر روی خاک افغانستان عمل می‌کند.</p></div>
+        <div><i class="fas fa-language fa-2x"></i><h4>پشتیبانی کامل دری/پشتو</h4><p>رابط کاربری و پشتیبانی به هر دو زبان ملی.</p></div>
+        <div><i class="fas fa-palette fa-2x"></i><h4>سازنده تم</h4><p>سفارشی‌سازی زنده، منحصر به افغان چت.</p></div>
+        <div><i class="fas fa-trophy fa-2x"></i><h4>تاج‌ها و هدایا</h4><p>مشارکت بازی‌سازی شده با جدول امتیازات.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center; padding:60px 0;">
+    <h2 style="font-size:3rem;">پیام‌رسانی مستقل.<br> ارائه شده.</h2>
+    <p style="margin:24px 0; font-size:1.2rem;">رایگان برای همیشه. پریمیوم اگر انتخاب کنید. ساخته شده در کابل، برای افغانستان و جهان.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1.2rem; padding:18px 48px;"><i class="fas fa-download"></i> دانلود افغان چت</a>
+    <p style="margin-top:20px; opacity:0.7;">در دسترس به عنوان PWA · اندروید/iOS به زودی</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px;">
+      <div><strong>افغان چت</strong><br>© 2026 افغان نت هولدینگز<br>کابل، افغانستان</div>
+      <div><a href="#" style="color:var(--text-muted); text-decoration:none;">حریم خصوصی</a> · <a href="#" style="color:var(--text-muted);">شرایط</a> · <a href="#" style="color:var(--text-muted);">شفافیت</a></div>
+      <div><i class="fab fa-twitter"></i> <i class="fab fa-github"></i> <i class="fab fa-linkedin"></i></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  console.log("🇦🇫 افغان چت – پیام‌رسان مستقل");
+</script>
+</body>
+  </html>
